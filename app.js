@@ -35,11 +35,12 @@ const html = `
       }
       html {
         font-family: neo-sans;
+        font-color: white;
         font-weight: 700;
         font-size: calc(62rem / 16);
       }
       body {
-        background: white;
+        background: black;
       }
       section {
         border-radius: 1em;
