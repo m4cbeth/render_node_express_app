@@ -5,7 +5,7 @@ const port = process.env.PORT || 3001;
 app.get("/", (req, res) => res.type('html').send(html));
 app.post("/", (req, res) => {
   const bodyJSON = req.body.JSON
-  res.type.JSON().send({ message: "Hello from Render!", body: bodyJSON })
+  res.json(bodyJSON)
 }
 );
 
