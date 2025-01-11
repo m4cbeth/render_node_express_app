@@ -48,7 +48,7 @@ module.exports = html = `
     <section>
       Hello from Jaren!
       <p>
-      You stay away from my data now ya'll hear!
+      You stay away from my data now y'all hear!
       </p>
     </section>
   </body>

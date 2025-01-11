@@ -7,6 +7,7 @@ const { handlePost } = require('./handlePost.js')
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
+app.use(cors())
 app.use(cors({ origin: 'https://jarenwhitehouse.netlify.app' }));
 app.use(cors({ origin: 'http://localhost:3000' }));
 
