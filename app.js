@@ -25,6 +25,9 @@ app.post("/api", (req, res) => {
 app.post('/cred', (req,res) => {
   console.log(process.env.PGHOST)
   console.log(process.env.PGUSER)
+  res.json({
+    hello: "hello"
+  })
 
 })
 
