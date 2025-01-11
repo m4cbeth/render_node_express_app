@@ -8,13 +8,12 @@ const handlePost = async (req, res) => {
       });
     await client.connect()
     const jaren = await client.query('SELECT * FROM jarens')
-    const result = await client.query('SELECT NOW()')
     await client.end()
     console.log(req.body)
+    console.table(jaren.rows)
     return res.json({ 
         message: "test worked",
-        result: new Date(result["rows"][0]["now"]).toString().slice(0,15),
-        jaren: jaren["rows"][0],
+        jarens: jaren.rows,
     })
 }
 

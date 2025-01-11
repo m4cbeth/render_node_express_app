@@ -23,16 +23,8 @@ app.post("/api", (req, res) => {
    })
 });
 
-app.post('/cred', (req,res) => {
-  console.log(process.env.PGHOST)
-  console.log(process.env.PGUSER)
-  res.json({
-    hello: "hello"
-  })
 
-})
-
-const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+const server = app.listen(port, () => console.log(`Here we go baby, up and running on port ${port}!`));
 
 server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
