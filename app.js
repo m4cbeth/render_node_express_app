@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require('cors');
 const html = require('./html.js')
-const { handlePost } = require('./handlePost.js')
+const { handlePost, getJarens } = require('./handlePost.js')
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
@@ -15,6 +15,7 @@ app.get("/", (req, res) => res.type('html').send(html));
 app.post("/dave", handlePost);
 
 
+app.get("/api", getJarens);
 app.post("/api", (req, res) => {
   console.log(req.body?.made)
   res.json({ 
