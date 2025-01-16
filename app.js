@@ -19,11 +19,12 @@ app.get("/api", getJarens);
 app.post("/api", (req, res) => {
   console.log(req.body?.made)
   res.json({ 
-    message: `Hello from Render! This was made by ${req.body?.made}`,
+    message: `Hello from Render! This was made by ${req.body?.name}`,
     method: "post"
    })
 });
 
+app.get("/users", )
 
 const server = app.listen(port, () => console.log(`Here we go baby, up and running on port ${port}!`));
 

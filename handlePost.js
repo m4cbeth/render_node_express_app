@@ -9,12 +9,12 @@ const handlePost = async (req, res) => {
 
     await client.connect()
    
-
+    let blwam = 0
     try {
-        console.log(req.body.data[0].name)
-        const result = await client.query("INSERT INTO jarens(name, age) values($1, $2)", [req.body.data[0].name, req.body.data[0].age])
-        
-        console.log(result)
+        console.log(req.body)
+        // const result = await client.query("INSERT INTO jarens(name, age) values($1, $2)", [req.body.data[0].name, req.body.data[0].age])
+        const result = await client.query("select * from jarens")
+        console.table(result.rows)
     } catch (err) {
         console.error(err)
     } finally {
@@ -24,6 +24,7 @@ const handlePost = async (req, res) => {
     
     return res.json({ 
         message: "test worked",
+        result: res.rows
       
     
     })
