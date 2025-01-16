@@ -14,8 +14,8 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.get("/", (req, res) => res.type('html').send(html));
 app.post("/dave", handlePost);
 
-
 app.get("/api", getJarens);
+
 app.post("/api", (req, res) => {
   console.log(req.body?.made)
   res.json({ 

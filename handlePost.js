@@ -14,7 +14,8 @@ const handlePost = async (req, res) => {
         console.log(req.body)
         // const result = await client.query("INSERT INTO jarens(name, age) values($1, $2)", [req.body.data[0].name, req.body.data[0].age])
         const result = await client.query("select * from jarens")
-        console.table(result.rows)
+        blwam = result.rows
+        console.table(blwam)
     } catch (err) {
         console.error(err)
     } finally {
@@ -24,7 +25,7 @@ const handlePost = async (req, res) => {
     
     return res.json({ 
         message: "test worked",
-        result: res.rows
+        result: blwam
       
     
     })
