@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const html = require('./html.js')
 const cors = require('cors');
+const rateLimit = require("express-rate-limit");
 const port = process.env.PORT || 3001;
 // -----------------------------------
 const { handlePost, getJarens } = require('./handlePost.js')
@@ -12,10 +13,15 @@ const { handlePost, getJarens } = require('./handlePost.js')
 // db.sequelize.sync({ alter: true }).then((x)=>console.log(x)).catch((e)=>console.error(e))
 
 
+
 app.use(express.json());
-app.use(cors())
 app.use(cors({ origin: 'https://jarenwhitehouse.netlify.app' }));
 app.use(cors({ origin: 'http://localhost:3000' }));
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+});
+app.use(limiter);
 
 const { Message } = require('./models')
 app.post('/test', (req, res) => {
