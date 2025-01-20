@@ -15,8 +15,10 @@ const { handlePost, getJarens } = require('./handlePost.js')
 
 
 app.use(express.json());
-app.use(cors({ origin: 'https://jarenwhitehouse.netlify.app' }));
-app.use(cors({ origin: 'http://localhost:3000' }));
+// app.use(cors({ origin: 'https://jarenwhitehouse.netlify.app' }))
+// app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(cors())
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // Limit each IP to 100 requests per windowMs
@@ -24,7 +26,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 const { Message } = require('./models')
-app.post('/test', (req, res) => {
+app.post('/messages', (req, res) => {
     const {message, email, name } = req.body
     Message.create({message, name, email})
     .then((x)=> console.log(x.dataValues))
@@ -35,7 +37,6 @@ app.post('/test', (req, res) => {
 
 app.get('/', (req, res) => res.type('html').send(html))
 app.get('/api', getJarens)
-app.post('/messages', handlePost)
 
 const p = x => console.log(x)
 

@@ -2,6 +2,7 @@ const pg = require('pg')
 const { Client } = pg
 const db = require('./db')
 
+// old way with pg. "have to" use new way with sequelize now that I've commited to that I think? Or why didn't this work?
 const handlePost = async (req, res) => {
     const { name, email, message } = req.body
     const params = [name, email, message]
