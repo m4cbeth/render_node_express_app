@@ -25,6 +25,7 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
+const { User } = require('./models')
 const { Message } = require('./models')
 app.post('/messages', (req, res) => {
     const {message, email, name } = req.body
@@ -37,25 +38,27 @@ app.post('/messages', (req, res) => {
 
 app.get('/', (req, res) => res.type('html').send(html))
 app.get('/api', getJarens)
-
-const p = x => console.log(x)
-
-const { User } = require('./models')
 app.get('/getalluser', async (req,res)=>{
   const users = await User.findAll()
   res.json({
     allUsers: users
   })
 })
+
+
+
+
+
 app.post('/signin', async (req, res) => {
   const { email, name, account: access_token} = req.body
-  let user
+  let foundUser
   try {
-    user = await User.findAll({
+    const user = await User.findAll({
       where: {
         email: email
       }
     })
+    foundUser = user
     if (!user[0]) {
       try {
         const newUser = await User.create({
@@ -66,6 +69,14 @@ app.post('/signin', async (req, res) => {
       } catch(err) {
         console.error(`Couldn't insert into db silly goose: ${err}`)
       }
+    } else {
+      // there is a user!
+      // send back what is in db for them to store as a seperate piece of user state
+      // you'll have your auth provider and a context provider for user
+      console.log(foundUser[0].dataValues)
+      // 2 things... realizing this block is useless, can't res.json here, have to in finally block
+      // and also for some reason have to foundUser[0].dataValues here to get the plain object,
+      // whereas in the res.json giving foundUser[0] comes out the other size as the plain object... weird.
     }
 
   }
@@ -76,16 +87,9 @@ app.post('/signin', async (req, res) => {
   finally {
     res.json({
       message: "from the db, we got",
-      user: user ||  "no user, something wrong"
+      user: foundUser[0] ||  "no user, something wrong"
     })
   }
-
-  
-
-  
-  
-  
-
 })
 
 
