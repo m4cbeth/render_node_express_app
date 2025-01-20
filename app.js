@@ -34,8 +34,65 @@ app.post('/test', (req, res) => {
 })
 
 app.get('/', (req, res) => res.type('html').send(html))
-app.get("/api", getJarens)
-app.post("/messages", handlePost)
+app.get('/api', getJarens)
+app.post('/messages', handlePost)
+
+const p = x => console.log(x)
+
+const { User } = require('./models')
+app.get('/getalluser', async (req,res)=>{
+  const users = await User.findAll()
+  res.json({
+    allUsers: users
+  })
+})
+app.post('/signin', async (req, res) => {
+  const { email, name, account: access_token} = req.body
+  let user
+  try {
+    user = await User.findAll({
+      where: {
+        email: email
+      }
+    })
+    if (!user[0]) {
+      try {
+        const newUser = await User.create({
+          name: name,
+          email: email,
+        })
+        console.log(`added ${newUser} to db`)
+      } catch(err) {
+        console.error(`Couldn't insert into db silly goose: ${err}`)
+      }
+    }
+
+  }
+  catch(err) {
+    console.error('jayron erron, think this means db connect issue?')
+    console.error(err)
+  }
+  finally {
+    res.json({
+      message: "from the db, we got",
+      user: user ||  "no user, something wrong"
+    })
+  }
+
+  
+
+  
+  
+  
+
+})
+
+
+
+
+
+
+
 
 
 
