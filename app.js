@@ -46,7 +46,23 @@ app.get('/getalluser', async (req,res)=>{
 })
 
 
-
+app.post('/getUser', async (req, res) => {
+  let foundUser
+  try {
+    const user = await User.findAll({
+      where: {
+        email: req.body.email,
+      }
+    })
+    foundUser = user[0]
+    console.log(`user = ${user[0]}`)
+  } catch(err) {
+    console.err(`I'm @/getUser and db conn failed ${err}`)
+  }
+  res.json({
+    foundUser
+  })
+})
 
 
 app.post('/signin', async (req, res) => {
